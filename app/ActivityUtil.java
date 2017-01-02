@@ -24,9 +24,9 @@ public class ActivityUtil {
     public static boolean isActivityExist(Context context, String packageName, String activityName) {
         Intent intent = new Intent();
         intent.setClassName(packageName, activityName);
-        return !(context.getPackageManager().resolveActivity(intent, 0) == null ||
+        return !(context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) == null ||
                 intent.resolveActivity(context.getPackageManager()) == null ||
-                context.getPackageManager().queryIntentActivities(intent, 0).size() == 0);
+                context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() == 0);
     }
 
     /**
@@ -49,5 +49,4 @@ public class ActivityUtil {
         }
         return null;
     }
-
 }
