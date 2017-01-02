@@ -1,8 +1,10 @@
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Process;
 
 /**
  * @author AllenKK
@@ -48,5 +50,24 @@ public class ActivityUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * get the name of current process
+     *
+     * @param context
+     * @return
+     */
+    public static String getCurrentProcessName(Context context) {
+        String processName = "";
+        int pid = Process.myPid();
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
+            if (info.pid == pid) {
+                processName = info.processName;
+                break;
+            }
+        }
+        return processName;
     }
 }
